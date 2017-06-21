@@ -1,5 +1,4 @@
 const express = require('express');
-const formidable = require('express-formidable');
 const app = express();
 const api = require('./api');
 
@@ -9,7 +8,6 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname + '/public'));
-app.use(formidable());
 app.use('/api', api);
 
 app.get('/', function (request, response) {

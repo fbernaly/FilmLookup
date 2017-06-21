@@ -20,8 +20,10 @@ app.get('/', function (request, response) {
 
 app.get('/films', function (req, res) {
 
+  var sql = "select * from public.film order by number";
+
   //ask for a client from the pool
-  db.connect(function (err, client) {
+  db.query(sql, function (err, json) {
     // Handle connection errors
     if (err) {
       console.log(err);
@@ -30,16 +32,8 @@ app.get('/films', function (req, res) {
         data: err
       });
     }
-    client.query('SELECT * FROM public.film', function (err, result) {
-      if (err) {
-        console.error(err);
-        response.send("Error " + err);
-      } else {
-        response.render('pages/db', {
-          results: result.rows
-        });
-      }
-    });
+
+    return res.status(200).json(json);
   });
 });
 

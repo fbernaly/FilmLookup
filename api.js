@@ -25,8 +25,29 @@ api.route('/')
 
 api.route('/film')
   .get(function (req, res) {
-    var sql = "SELECT * FROM public.film ORDER BY number";
+    var sql = "SELECT f.id, f.number AS film_number, u.firstName || ' ' || u.lastName AS created_by, l.name AS location, f.created_at AS created_at, f.updated_at AS updated_at FROM public.film f INNER JOIN public.user u on f.created_by = u.id INNER JOIN public.location l on f.located_at = l.id";
+
     var params = []
+    if (req.query.number) {
+      params = [req.query.number];
+      sql += " WHERE f.number = $1::int";
+    }
+
+    sql += " ORDER BY f.number";
+
+    query(sql, params, res);
+  });
+
+api.route('/film/:id')
+  .get(function (req, res) {
+    var sql = "SELECT f.id, f.number AS film_number, u.firstName || ' ' || u.lastName AS created_by, l.name AS location, f.created_at AS created_at, f.updated_at AS updated_at FROM public.film f INNER JOIN public.user u on f.created_by = u.id INNER JOIN public.location l on f.located_at = l.id";
+
+    var params = []
+    if (req.params.id) {
+      params = [req.params.id];
+      sql += " WHERE f.id = $1::int";
+    }
+
     query(sql, params, res);
   });
 

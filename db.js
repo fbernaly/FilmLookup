@@ -13,18 +13,14 @@ function connect(callback) {
   });
 }
 
-module.exports.connect = function (callback) {
-  connect(callback);
-};
-
-module.exports.query = function (sql, callback) {
+function query (sql, params, callback) {
   connect(function (err, client) {
     // Handle connection errors
     if (err) {
       return callback(err, null);
     }
 
-    var query = client.query(sql, function (err, result) {
+    var query = client.query(sql, params, function (err, result) {
       // we are now done getting the data from the DB, disconnect the client
       client.end(function (err) {
         if (err) throw err;
@@ -38,4 +34,12 @@ module.exports.query = function (sql, callback) {
     });
 
   });
+}
+
+module.exports.connect = function (callback) {
+  return connect(callback);
+};
+
+module.exports.query = function (sql, params, callback) {
+  return query (sql, params, callback);
 };

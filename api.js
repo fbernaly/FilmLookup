@@ -2,7 +2,7 @@ const express = require('express');
 const db = require('./db');
 const bodyParser = require('body-parser');
 
-function query(sql, params, res) {
+function query(sql, params, res, callback) {
   db.query(sql, params, function (err, json) {
     // Handle connection errors
     if (err) {
@@ -12,8 +12,12 @@ function query(sql, params, res) {
       });
     }
 
-    // sucess!!
-    return res.status(200).json(json);
+    if (callback) {
+      callback();
+    } else {
+      // sucess!!
+      return res.status(200).json(json);
+    }
   });
 }
 
@@ -30,7 +34,7 @@ var statements = {
   "post_user": "INSERT INTO public.user (firstName, lastName, email, mobile, password) VALUES ($1::text, $2::text, $3::text, $4::text, $5::text)",
   "post_film": "INSERT INTO public.film (number, located_at, created_by, updated_by)  VALUES ($1::int, 1, (SELECT id from public.user WHERE email = $2::text), (SELECT id from public.user WHERE email = $2::text))",
   "put_user": "UPDATE public.user SET",
-  "delete_film": "DELETE FROM public.film WHERE number = $1::int"
+  "delete_film": "DELETE FROM public.film WHERE id = $1::int"
 };
 
 api.route('/')
@@ -63,17 +67,7 @@ api.route('/films')
       return res.sendStatus(400);
     }
     params = [req.body.number, req.body.email];
-
-    db.query(sql, params, function (err, json) {
-      // Handle connection errors
-      if (err) {
-        return res.status(500).json({
-          success: false,
-          data: err
-        });
-      }
-
-      // sucess!!
+    query(sql, params, res, function () {
       sql = statements["get_films"] + " WHERE f.number = $1::int";
       params = [req.body.number];
       query(sql, params, res);
@@ -96,17 +90,7 @@ api.route('/films/:id')
     if (req.params.id) {
       params = [req.params.id];
     }
-
-    db.query(sql, params, function (err, json) {
-      // Handle connection errors
-      if (err) {
-        return res.status(500).json({
-          success: false,
-          data: err
-        });
-      }
-
-      // sucess!!
+    query(sql, params, res, function () {
       return res.status(200).json({
         success: true
       });
@@ -127,17 +111,7 @@ api.route('/users')
       return res.sendStatus(400);
     }
     params = [req.body.firstName, req.body.lastName, req.body.email, req.body.mobile, req.body.password];
-
-    db.query(sql, params, function (err, json) {
-      // Handle connection errors
-      if (err) {
-        return res.status(500).json({
-          success: false,
-          data: err
-        });
-      }
-
-      // sucess!!
+    query(sql, params, res, function () {
       sql = statements["get_users"] + " WHERE u.email = $1::text";
       params = [req.body.email];
       query(sql, params, res);
@@ -188,7 +162,7 @@ api.route('/users/:id')
       sql += params.length > 1 ? "," : ""
       sql += " password = $" + params.length.toString() + "::text";
     }
-  
+
     if (req.body.role_id) {
       params.push(req.body.role_id);
       sql += params.length > 1 ? "," : ""
@@ -198,16 +172,7 @@ api.route('/users/:id')
     params.push(req.params.id);
     sql += " WHERE id = $" + params.length.toString() + "::int";
 
-    db.query(sql, params, function (err, json) {
-      // Handle connection errors
-      if (err) {
-        return res.status(500).json({
-          success: false,
-          data: err
-        });
-      }
-
-      // sucess!!
+    query(sql, params, res, function () {
       sql = statements["get_users"] + " WHERE u.id = $1::int";
       params = [req.params.id];
       query(sql, params, res);

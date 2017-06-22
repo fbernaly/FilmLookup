@@ -39,7 +39,7 @@ var statements = {
 
 api.route('/')
   .get(function (req, res) {
-    res.send('Welcome to API for Film Lookup Service');
+    res.render('pages/api');
   });
 
 api.route('/login')

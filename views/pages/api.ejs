@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Film Lookup</title>
+  <% include ../partials/header.ejs %>
+
+    <style>
+      body {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      table {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+      }
+      
+      th {
+        padding: 10px;
+      }
+
+    </style>
+</head>
+
+<body>
+
+  <% include ../partials/nav.ejs %>
+
+    <div>
+      <h1>Welcome to API for Film Lookup Service</h1>
+
+      <table>
+        <tr>
+          <th>API</th>
+          <th>Method</th>
+          <th>Body</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <th>api/films</th>
+          <th>GET</th>
+          <th>{}</th>
+          <th>List all films</th>
+        </tr>
+        <tr>
+          <th>api/films</th>
+          <th>POST</th>
+          <th>{ "number" : int, "email" : string }
+          </th>
+          <th>Create a film</th>
+        </tr>
+        <tr>
+          <th>api/films/:id</th>
+          <th>GET</th>
+          <th>{}
+          </th>
+          <th>Read a film</th>
+        </tr>
+        <tr>
+          <th>api/films/:id</th>
+          <th>DELETE</th>
+          <th>{}
+          </th>
+          <th>Delete a film</th>
+        </tr>
+        <tr>
+          <th>api/users</th>
+          <th>GET</th>
+          <th>{}</th>
+          <th>List all users</th>
+        </tr>
+        <tr>
+          <th>api/users</th>
+          <th>POST</th>
+          <th>{ "email" : string, "firstName" : string, "lastName" : string, "mobile" : string, "password" : string}
+          </th>
+          <th>Create a user</th>
+        </tr>
+        <tr>
+          <th>api/users/:id</th>
+          <th>GET</th>
+          <th>{}
+          </th>
+          <th>Read a user</th>
+        </tr>
+        <tr>
+          <th>api/users/:id</th>
+          <th>PUT</th>
+          <th>{ "email" : string, "firstName" : string, "lastName" : string, "mobile" : string, "password" : string, "role_id" : int}
+          </th>
+          <th>Update a user</th>
+        </tr>
+        <tr>
+          <th>api/locations</th>
+          <th>GET</th>
+          <th>{}</th>
+          <th>List all locations</th>
+        </tr>
+        <tr>
+          <th>api/roles</th>
+          <th>GET</th>
+          <th>{}</th>
+          <th>List all roles</th>
+        </tr>
+      </table>
+
+    </div>
+
+</body>
+
+</html>

@@ -19,7 +19,7 @@ function query(sql, params, res, callback) {
     if (err) {
       return res.status(500).json({
         success: false,
-        err: err,
+        error: err,
         data: null
       });
     }
@@ -30,7 +30,7 @@ function query(sql, params, res, callback) {
       // sucess!!
       return res.status(200).json({
         success: true,
-        err: null,
+        error: null,
         data: json
       });
     }

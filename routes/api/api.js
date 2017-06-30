@@ -1,6 +1,17 @@
 const express = require('express');
 const db = require('./db');
-const bodyParser = require('body-parser');
+const api = express.Router();
+
+var statements = {
+  "get_films": "SELECT f.id, f.number AS film_number, u.firstName || ' ' || u.lastName AS created_by, l.name AS location, f.created_at AS created_at, f.updated_at AS updated_at FROM public.film f INNER JOIN public.user u on f.created_by = u.id INNER JOIN public.location l on f.located_at = l.id",
+  "get_users": "SELECT u.id, u.firstName || ' ' || u.lastName AS user, u.email AS email, u.mobile, r.name AS role FROM public.user u INNER JOIN public.role r ON r.id = u.role_id",
+  "get_locations": "SELECT * FROM public.location",
+  "get_roles": "SELECT * FROM public.role",
+  "post_user": "INSERT INTO public.user (firstName, lastName, email, mobile, password) VALUES ($1::text, $2::text, $3::text, $4::text, $5::text)",
+  "post_film": "INSERT INTO public.film (number, located_at, created_by, updated_by)  VALUES ($1::int, 1, (SELECT id from public.user WHERE email = $2::text), (SELECT id from public.user WHERE email = $2::text))",
+  "put_user": "UPDATE public.user SET",
+  "delete_film": "DELETE FROM public.film WHERE id = $1::int"
+};
 
 function query(sql, params, res, callback) {
   db.query(sql, params, function (err, json) {
@@ -20,22 +31,6 @@ function query(sql, params, res, callback) {
     }
   });
 }
-
-var api = express.Router();
-
-// parse application/json 
-var jsonParser = bodyParser.json();
-
-var statements = {
-  "get_films": "SELECT f.id, f.number AS film_number, u.firstName || ' ' || u.lastName AS created_by, l.name AS location, f.created_at AS created_at, f.updated_at AS updated_at FROM public.film f INNER JOIN public.user u on f.created_by = u.id INNER JOIN public.location l on f.located_at = l.id",
-  "get_users": "SELECT u.id, u.firstName || ' ' || u.lastName AS user, u.email AS email, u.mobile, r.name AS role FROM public.user u INNER JOIN public.role r ON r.id = u.role_id",
-  "get_locations": "SELECT * FROM public.location",
-  "get_roles": "SELECT * FROM public.role",
-  "post_user": "INSERT INTO public.user (firstName, lastName, email, mobile, password) VALUES ($1::text, $2::text, $3::text, $4::text, $5::text)",
-  "post_film": "INSERT INTO public.film (number, located_at, created_by, updated_by)  VALUES ($1::int, 1, (SELECT id from public.user WHERE email = $2::text), (SELECT id from public.user WHERE email = $2::text))",
-  "put_user": "UPDATE public.user SET",
-  "delete_film": "DELETE FROM public.film WHERE id = $1::int"
-};
 
 api.route('/')
   .get(function (req, res) {
@@ -59,7 +54,7 @@ api.route('/films')
     sql += " ORDER BY f.number";
     query(sql, params, res);
   })
-  .post(jsonParser, function (req, res) {
+  .post(function (req, res) {
     if (!req.body) return res.sendStatus(400);
     var sql = statements["post_film"];
     var params = []
@@ -110,7 +105,7 @@ api.route('/users')
     sql += " ORDER BY u.firstName, u.lastName, u.email";
     query(sql, params, res);
   })
-  .post(jsonParser, function (req, res) {
+  .post(function (req, res) {
     if (!req.body) return res.sendStatus(400);
     var sql = statements["post_user"];
     var params = []
@@ -135,7 +130,7 @@ api.route('/users/:id')
     }
     query(sql, params, res);
   })
-  .put(jsonParser, function (req, res) {
+  .put(function (req, res) {
     if (!req.body) return res.sendStatus(400);
     var sql = statements["put_user"];
     var params = []

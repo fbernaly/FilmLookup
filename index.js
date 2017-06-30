@@ -14,8 +14,11 @@ app.set('view engine', 'ejs');
 // public directory
 app.use(express.static(__dirname + '/public'));
 
-// body parser
-app.use(bodyParser.urlencoded({ extended: true })); 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 // routers
 app.use('/api', api);

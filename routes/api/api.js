@@ -99,8 +99,15 @@ api.route('/films/:id')
 
 api.route('/users')
   .get(function (req, res) {
-    var sql = statements["get_users"] + " ORDER BY u.firstName, u.lastName, u.email";
+    var sql = statements["get_users"];
     var params = []
+    if (req.query.email && req.query.password) {
+      sql += " WHERE u.email = $1::text AND u.password = $2::text";
+      params = [req.query.email, req.query.password];
+    } else {
+
+    }
+    sql += " ORDER BY u.firstName, u.lastName, u.email";
     query(sql, params, res);
   })
   .post(jsonParser, function (req, res) {

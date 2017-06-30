@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const api = require('./routes/api/api');
 const pages = require('./routes/pages/pages');
+var bodyParser = require('body-parser');
 
 // set port
 app.set('port', (process.env.PORT || 5000));
@@ -12,6 +13,9 @@ app.set('view engine', 'ejs');
 
 // public directory
 app.use(express.static(__dirname + '/public'));
+
+// body parser
+app.use(bodyParser.urlencoded({ extended: true })); 
 
 // routers
 app.use('/api', api);

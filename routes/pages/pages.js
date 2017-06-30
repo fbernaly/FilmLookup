@@ -1,10 +1,5 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-
 var router = express.Router();
-
-// parse application/json 
-var jsonParser = bodyParser.json();
 
 router.route('/')
   .get(function (req, res) {
@@ -14,6 +9,11 @@ router.route('/')
 router.route('/login')
   .get(function (req, res) {
     res.render('pages/login');
+  });
+
+router.route('/signup')
+  .get(function (req, res) {
+    res.render('pages/signup');
   });
 
 module.exports = router;

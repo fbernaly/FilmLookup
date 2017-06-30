@@ -2,9 +2,8 @@
 <html>
 
 <head>
-  <title>Film Lookup</title>
-  <% include ../partials/header.ejs %>
-
+  <title>Film Lookup API</title>
+  <% include ../partials/head.ejs %>
     <style>
       body {
         width: 80%;
@@ -26,10 +25,13 @@
 </head>
 
 <body>
+  <div class="container">
 
-  <% include ../partials/nav.ejs %>
+    <header class="header">
+      <h1>Film Lookup</h1>
+    </header>
 
-    <div>
+    <article class="article">
       <h1>Welcome to API for Film Lookup Service</h1>
 
       <table>
@@ -106,9 +108,10 @@
           <th>List all roles</th>
         </tr>
       </table>
+    </article>
 
-    </div>
-
+    <% include ../partials/footer.ejs %>
+  </div>
 </body>
 
 </html>

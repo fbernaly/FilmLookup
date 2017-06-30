@@ -13,7 +13,7 @@ router.route('/')
 
 router.route('/login')
   .get(function (req, res) {
-    res.send('Hola mundo!!!');
+    res.render('pages/login');
   });
 
 module.exports = router;

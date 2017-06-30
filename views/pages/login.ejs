@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Login</title>
+  <% include ../partials/head.ejs %>
+</head>
+
+<body>
+  <div class="container">
+
+    <header class="header">
+      <h1>Film Lookup</h1>
+    </header>
+
+    <nav class="nav">
+      <ul>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </nav>
+
+    <article class="article">
+      <center>
+        <form action="api/users" method="get">
+          E-mail:
+          <input type="text" name="email" id="email" placeholder="Enter your email" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required />
+          <br> Password:
+          <input type="password" name="password" id="password" placeholder="Enter your password" required="required" />
+          <br>
+          <button type="submit">Log In</button>
+        </form>
+
+        <br>
+        <div id="response"></div>
+      </center>
+    </article>
+
+    <% include ../partials/footer.ejs %>
+  </div>
+</body>
+
+</html>

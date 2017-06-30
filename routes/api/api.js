@@ -19,7 +19,8 @@ function query(sql, params, res, callback) {
     if (err) {
       return res.status(500).json({
         success: false,
-        data: err
+        err: err,
+        data: null
       });
     }
 
@@ -27,7 +28,11 @@ function query(sql, params, res, callback) {
       callback();
     } else {
       // sucess!!
-      return res.status(200).json(json);
+      return res.status(200).json({
+        success: true,
+        err: null,
+        data: json
+      });
     }
   });
 }

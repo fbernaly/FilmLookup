@@ -3,18 +3,45 @@
 
 <head>
   <title>Film Lookup</title>
-  <% include ../partials/header.ejs %>
+  <% include ../partials/head.ejs %>
 </head>
 
 <body>
+  <div class="container">
 
-  <% include ../partials/nav.ejs %>
+    <header class="header">
+      <h1>Film Lookup</h1>
+    </header>
 
-    <div>
-      <p>Coming soon...</p>
+    <nav class="nav">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/login">Login</a></li>
+      </ul>
+    </nav>
 
-    </div>
+    <article class="article">
+      <br>
+      <div id="message"></div>
+      <br>
+      <br>
+      <center>
 
+        <form action="api/films" method="get">
+          Enter the film number you are looking for:
+          <br>
+          <input type="text" id="number" name="number" placeholder="Film number" required>
+          <br>
+          <button type="submit">Search</button>
+        </form>
+
+        <div id="response"></div>
+
+      </center>
+    </article>
+
+    <% include ../partials/footer.ejs %>
+  </div>
 </body>
 
 </html>

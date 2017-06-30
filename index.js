@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const api = require('./api');
+const api = require('./routes/api/api');
 
 app.set('port', (process.env.PORT || 5000));
 // views is directory for all template files

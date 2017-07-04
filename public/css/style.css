@@ -130,7 +130,7 @@ table {
   width: 100%;
   border: 1px solid #ddd;
   font-size: 18px;
-  opacity: 0;
+  opacity: 1;
   transition: opacity 1s linear;
 }
 

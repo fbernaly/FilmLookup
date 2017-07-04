@@ -4,9 +4,10 @@
 <head>
   <title>Film Lookup</title>
   <% include ../partials/head.ejs %>
+    <script type="text/javascript" src="/js/lookup.js"></script>
 </head>
 
-<body>
+<body onload="getFilms()">
   <div class="container">
 
     <header class="header">
@@ -16,7 +17,7 @@
 
     <nav class="nav">
       <ul>
-        <li><a href="/">Home</a></li>
+        <li><a href="#">Home</a></li>
         <li><a href="/login">Login</a></li>
         <li><a href="/signup">Sign Up</a></li>
       </ul>
@@ -29,15 +30,23 @@
       <br>
       <center>
 
-        <form action="api/films" method="get">
-          Enter the film number you are looking for:
-          <br>
-          <input type="text" id="number" name="number" placeholder="Film number" required>
-          <br>
-          <button type="submit">Search</button>
-        </form>
+        <input type="text" class="expandable" id="film_number" name="number" onkeyup="lookup()" placeholder="Search by film number...">
+        <br>
 
-        <div id="response"></div>
+        <input type="radio" name="method" onchange="lookup()" id="matching" checked> Matching<br>
+        <input type="radio" name="method" onchange="lookup()" id="containing"> Containing<br>
+        <br>
+        <br>
+
+        <div id="loader" class="loader"></div>
+
+        <table id="films_table" style="visibility: hidden">
+          <tr class="tr_header">
+            <th>Film</th>
+            <th>Location</th>
+            <th>Created at</th>
+          </tr>
+        </table>
 
       </center>
     </article>

@@ -130,6 +130,8 @@ table {
   width: 100%;
   border: 1px solid #ddd;
   font-size: 18px;
+  opacity: 0;
+  transition: opacity 1s linear;
 }
 
 table th,
@@ -171,13 +173,15 @@ input[type=text].expandable:focus {
   width: 80%;
 }
 
-.loader {
+#loader {
   border: 5px solid #eee;
   border-radius: 50%;
   border-top: 5px solid #777;
   width: 20px;
   height: 20px;
   animation: spin 1s linear infinite;
+  opacity: 1;
+  transition: opacity 1s linear;
 }
 
 @keyframes spin {
@@ -187,4 +191,15 @@ input[type=text].expandable:focus {
   100% {
     transform: rotate(360deg);
   }
+}
+
+#toast {
+  margin: auto 100px;
+  background-color: #eee;
+  color: black;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 0 0 10px #777;
+  transition: 0.5s ease-in-out;
+  opacity: 0;
 }

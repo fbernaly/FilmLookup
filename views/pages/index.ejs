@@ -30,6 +30,8 @@
       <br>
       <center>
 
+        <p>After the table is loaded, search for a film number. Try films that does not exist in the database to see another animation.</p>
+
         <input type="text" class="expandable" id="film_number" name="number" onkeyup="lookup()" placeholder="Search by film number...">
         <br>
 
@@ -38,7 +40,7 @@
         <br>
         <br>
 
-        <div id="loader" class="loader"></div>
+        <div id="loader"></div>
 
         <table id="films_table" style="visibility: hidden">
           <tr class="tr_header">
@@ -47,6 +49,10 @@
             <th>Created at</th>
           </tr>
         </table>
+
+        <center id="toast">
+          <p id="ptoast">Not Found</p>
+        </center>
 
       </center>
     </article>

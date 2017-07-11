@@ -132,6 +132,7 @@ table {
   font-size: 18px;
   opacity: 1;
   transition: opacity 1s linear;
+  margin-top: 10px;
 }
 
 table th,

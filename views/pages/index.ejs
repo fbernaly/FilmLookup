@@ -8,6 +8,10 @@
 </head>
 
 <body onload="getFilms()">
+  <script>
+    sessionStorage.isAdmin= <%= (user && user.role == 'admin') ? true : false %>
+
+  </script>
   <div class="container">
 
     <% var title = 'Welcome' + (user ? ' ' + user.firstname : '') %>
@@ -16,36 +20,39 @@
         <%include ../partials/nav.ejs %>
 
           <article class="article">
-            <br>
-            <div id="message"></div>
-            <br>
-            <br>
             <center>
 
               <p>Welcome
                 <%= user ? user.firstname  + " " : "" %> to the Film Lookup Service for the Sacramento FamilySearch Library</p>
 
-              <input type="text" class="expandable" id="film_number" name="number" onkeyup="lookup()" placeholder="Search by film number...">
-              <br>
+              <% if (user && user.role == 'admin') { %>
+                <p>As an admin you can Add and Delete films from the data base.</p>
+                <% } %>
 
-              <input type="radio" name="method" onchange="lookup()" id="matching" checked> Matching<br>
-              <input type="radio" name="method" onchange="lookup()" id="containing"> Containing<br>
-              <br>
-              <br>
+                  <input type="text" class="expandable" id="film_number" name="number" onkeyup="lookup()" placeholder="Search by film number...">
 
-              <div id="loader"></div>
+                  <button onclick="addFilm();" id="add_button" style="display:none;">Add</button>
+                  <br>
 
-              <table id="films_table" style="visibility: hidden; opacity: 0;">
-                <tr class="tr_header">
-                  <th>Film</th>
-                  <th>Location</th>
-                  <th>Created at</th>
-                </tr>
-              </table>
+                  <input type="radio" name="method" onchange="lookup()" id="matching" checked> Matching<br>
+                  <input type="radio" name="method" onchange="lookup()" id="containing"> Containing<br>
 
-              <center id="toast">
-                <p id="ptoast">Not Found</p>
-              </center>
+                  <div id="loader"></div>
+
+                  <table id="films_table" style="visibility: hidden; opacity: 0;">
+                    <tr class="tr_header">
+                      <th>Film</th>
+                      <th>Location</th>
+                      <th>Created at</th>
+                      <% if (user && user.role == 'admin') { %>
+                        <th>Delete</th>
+                        <% } %>
+                    </tr>
+                  </table>
+
+                  <center id="toast">
+                    <p id="ptoast">Not Found</p>
+                  </center>
 
             </center>
           </article>

@@ -29,7 +29,7 @@ function lookup() {
 
   var hide = true
 
-  for (var i = 0; i < tr.length; i++) {
+  for (var i = 1; i < tr.length; i++) {
     var td = tr[i].getElementsByTagName("td")[0];
     if (td) {
       if (filter == "" || (matching == true && td.innerHTML.toUpperCase() == filter) || (containing == true && td.innerHTML.toUpperCase().indexOf(filter) > -1)) {
@@ -43,6 +43,7 @@ function lookup() {
 
   table.style.opacity = hide ? 0 : 1;
   hide ? showNotFound() : hideNotFound();
+  hide ? showAddButton() : hideAddButton()
 }
 
 function getFilms() {
@@ -94,19 +95,38 @@ function displayTable(json) {
   }
 }
 
-function addRow(film) {
+function addRow(film, sibling) {
   var table = document.getElementById("films_table");
   var tr = document.createElement("TR");
   addColumn(tr, film['film_number']);
   addColumn(tr, film['location']);
   addColumn(tr, film['created_at']);
-  table.appendChild(tr);
+  if (sessionStorage.isAdmin == 'true') {
+    addDeleteButton(tr, film['id']);
+  }
+  if (sibling) {
+    table.insertBefore(tr, sibling);
+  } else {
+    table.appendChild(tr);
+  }
 }
 
 function addColumn(tr, text) {
   var td = document.createElement("TD");
   var textnode = document.createTextNode(text);
   td.appendChild(textnode);
+  tr.appendChild(td);
+}
+
+function addDeleteButton(tr, id) {
+  var td = document.createElement("TD");
+  var button = document.createElement("BUTTON");
+  button.onclick = function () {
+    deleteFilm(id, tr);
+  };
+  var text = document.createTextNode("Delete");
+  button.appendChild(text)
+  td.appendChild(button);
   tr.appendChild(td);
 }
 
@@ -126,4 +146,89 @@ function hideNotFound() {
   var toast = document.getElementById("toast")
   toast.style.transform = "translate(0px, 80px)";
   toast.style.opacity = 0;
+}
+
+function showAddButton() {
+  var button = document.getElementById("add_button");
+  if (sessionStorage.isAdmin == 'true') {
+    button.style.display = ""
+  }
+}
+
+function hideAddButton() {
+  var button = document.getElementById("add_button");
+  button.style.display = "none"
+}
+
+function addFilm() {
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+      if (xmlhttp.status == 200) {
+        var button = document.getElementById("add_button");
+        button.style.display = "none"
+        insertFilmInTable()
+      } else {}
+    }
+  };
+  xmlhttp.open('POST', 'api/films');
+  xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  var number = document.getElementById("film_number").value
+  var email = "fbernaly@gmail.com"
+  xmlhttp.send('number=' + number + '&email=' + email);
+}
+
+function deleteFilm(id, tr) {
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+      if (xmlhttp.status == 200) {
+        tr.parentNode.removeChild(tr);
+      } else {}
+    }
+  };
+  xmlhttp.open('DELETE', 'api/films/' + id);
+  xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xmlhttp.send();
+}
+
+function insertFilmInTable() {
+  var number = document.getElementById("film_number").value;
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+    if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+      if (xmlhttp.status == 200) {
+        var json = JSON.parse(xmlhttp.responseText);
+        var success = json["success"];
+        if (success == true) {
+          var arr = json['data'];
+          var film = arr[0];
+          var sibling = searchFilmSiblingInTable()
+          addRow(film, sibling)
+          lookup()
+        }
+      } else {}
+    }
+  };
+  xmlhttp.open('GET', 'api/films?number=' + number);
+  xmlhttp.send();
+}
+
+function searchFilmSiblingInTable() {
+  var number, table, tr, matching, containing;
+  number = document.getElementById("film_number").value.toUpperCase();
+  table = document.getElementById("films_table");
+  tr = table.getElementsByTagName("tr");
+
+  for (var i = 1; i < tr.length; i++) {
+    var td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      var text = td.innerHTML.toUpperCase()
+      if (parseInt(number) < parseInt(text)) {
+        return tr[i];
+      }
+    }
+  }
+
+  return null;
 }

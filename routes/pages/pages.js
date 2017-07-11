@@ -5,7 +5,9 @@ const isAuthenticated = require('../../authentication/middleware');
 
 router.route('/')
   .get(function (req, res) {
-    res.render('pages/index');
+    res.render('pages/index', {
+      user: req.session.user
+    });
   });
 
 router.route('/users')

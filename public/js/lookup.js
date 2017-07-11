@@ -102,7 +102,7 @@ function addRow(film, sibling) {
   addColumn(tr, film['location']);
   addColumn(tr, film['created_at']);
   if (sessionStorage.isAdmin == 'true') {
-    addDeleteButton(tr, film['id']);
+    addDeleteButton(tr, film['id'], film['film_number']);
   }
   if (sibling) {
     table.insertBefore(tr, sibling);
@@ -118,11 +118,11 @@ function addColumn(tr, text) {
   tr.appendChild(td);
 }
 
-function addDeleteButton(tr, id) {
+function addDeleteButton(tr, id, number) {
   var td = document.createElement("TD");
   var button = document.createElement("BUTTON");
   button.onclick = function () {
-    deleteFilm(id, tr);
+    deleteFilm(id, number, tr);
   };
   var text = document.createTextNode("Delete");
   button.appendChild(text)
@@ -178,12 +178,15 @@ function addFilm() {
   xmlhttp.send('number=' + number + '&email=' + email);
 }
 
-function deleteFilm(id, tr) {
+function deleteFilm(id, number, tr) {
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
     if (xmlhttp.readyState == XMLHttpRequest.DONE) {
       if (xmlhttp.status == 200) {
         tr.parentNode.removeChild(tr);
+        lookup()
+        var p = document.getElementById("ptoast");
+        p.innerHTML = "Film '" + number + "' deleted."
       } else {}
     }
   };

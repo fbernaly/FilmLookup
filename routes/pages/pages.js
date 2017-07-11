@@ -40,6 +40,13 @@ router.route('/signup')
     failureFlash: true
   }));
 
+router.route('/logout')
+  .get(function (req, res) {
+    req.logout();
+    req.session.reset();
+    res.redirect('/');
+  })
+
 router.route('/error')
   .get(function (req, res) {
     res.send(req.flash('message'));

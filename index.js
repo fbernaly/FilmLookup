@@ -3,7 +3,7 @@ const app = express();
 const api = require('./routes/api/api');
 const pages = require('./routes/pages/pages');
 const bodyParser = require('body-parser');
-const session = require('express-session');
+const session = require('client-sessions');
 const passport = require('passport');
 const flash = require('connect-flash');
 
@@ -16,9 +16,13 @@ app.set('view engine', 'ejs');
 
 // set session
 app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true
+  cookieName: 'session',
+  secret: 'eg[isfd-8yF9-7w2315df{}+Ijsli;;to8',
+  duration: 30 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000,
+  httpOnly: true,
+  secure: true,
+  ephemeral: true
 }));
 
 // flash is a special area of the session used for storing messages

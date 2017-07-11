@@ -1,10 +1,21 @@
 const express = require('express');
 var router = express.Router();
 const passport = require('passport');
+const isAuthenticated = require('../../authentication/middleware');
 
 router.route('/')
   .get(function (req, res) {
     res.render('pages/index');
+  });
+
+router.route('/users')
+  .get(isAuthenticated, function (req, res) {
+    res.send('Hello to users');
+  });
+
+router.route('/account')
+  .get(isAuthenticated, function (req, res) {
+    res.send('Hello to account');
   });
 
 router.route('/login')

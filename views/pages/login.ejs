@@ -9,35 +9,33 @@
 <body>
   <div class="container">
 
-    <header class="header">
-      <h1>Film Lookup</h1>
-      <h2>Login</h2>
-    </header>
+    <% var title = 'Login' %>
+      <% include ../partials/header.ejs %>
 
-    <nav class="nav">
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/signup">Sign Up</a></li>
-      </ul>
-    </nav>
+        <nav class="nav">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/signup">Sign Up</a></li>
+          </ul>
+        </nav>
 
-    <article class="article">
-      <center>
-        <form action="/login" method="post">
-          E-mail:
-          <input type="text" name="email" id="email" placeholder="Enter your email" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required />
-          <br> Password:
-          <input type="password" name="password" id="password" placeholder="Enter your password" required="required" />
-          <br>
-          <button type="submit">Log In</button>
-        </form>
+        <article class="article">
+          <center>
+            <form action="/login" method="post">
+              E-mail:
+              <input type="text" name="email" id="email" placeholder="Enter your email" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required />
+              <br> Password:
+              <input type="password" name="password" id="password" placeholder="Enter your password" required="required" />
+              <br>
+              <button type="submit">Log In</button>
+            </form>
 
-        <br>
-        <div id="response"></div>
-      </center>
-    </article>
+            <br>
+            <div id="response"></div>
+          </center>
+        </article>
 
-    <% include ../partials/footer.ejs %>
+        <% include ../partials/footer.ejs %>
   </div>
 </body>
 

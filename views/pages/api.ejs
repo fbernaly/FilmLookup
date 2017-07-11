@@ -9,116 +9,114 @@
 <body>
   <div class="container">
 
-    <header class="header">
-      <h1>Film Lookup</h1>
-      <h2>API</h2>
-    </header>
+    <% var title = 'API' %>
+      <% include ../partials/header.ejs %>
 
-    <article class="article">
-      <h1>Welcome to Film Lookup API</h1>
+        <article class="article">
+          <h1>Welcome to Film Lookup API</h1>
 
-      <table>
-        <tr class="tr_header">
-          <th>Service</th>
-          <th>Method</th>
-          <th>Body</th>
-          <th>Need Authentication</th>
-          <th>Description</th>
-        </tr>
-        <tr>
-          <th>api/films</th>
-          <th>GET</th>
-          <th>{}</th>
-          <th>&#10004;</th>
-          <th>List all films</th>
-        </tr>
-        <tr>
-          <th>api/films</th>
-          <th>POST</th>
-          <th>{ "number" : int, "email" : string }
-          </th>
-          <th>&#10004;</th>
-          <th>Create a film</th>
-        </tr>
-        <tr>
-          <th>api/films/:id</th>
-          <th>GET</th>
-          <th>{}
-          </th>
-          <th>&#10004;</th>
-          <th>Read a film by id</th>
-        </tr>
-        <tr>
-          <th>api/films?number=:number</th>
-          <th>GET</th>
-          <th>{}
-          </th>
-          <th></th>
-          <th>Read a film by number</th>
-          <tr>
-            <th>api/films/:id</th>
-            <th>DELETE</th>
-            <th>{}
-            </th>
-            <th>&#10004;</th>
-            <th>Delete a film</th>
-          </tr>
-          <tr>
-            <th>api/users</th>
-            <th>GET</th>
-            <th>{}</th>
-            <th>&#10004;</th>
-            <th>List all users</th>
-          </tr>
-          <tr>
-            <th>api/users?email=:email&amp;password=:password</th>
-            <th>GET</th>
-            <th>{}</th>
-            <th></th>
-            <th>Read user with email and password</th>
-          </tr>
-          <tr>
-            <th>api/users</th>
-            <th>POST</th>
-            <th>{ "email" : string, "firstName" : string, "lastName" : string, "mobile" : string, "password" : string}
-            </th>
-            <th></th>
-            <th>Create a user</th>
-          </tr>
-          <tr>
-            <th>api/users/:id</th>
-            <th>GET</th>
-            <th>{}
-            </th>
-            <th>&#10004;</th>
-            <th>Read a user</th>
-          </tr>
-          <tr>
-            <th>api/users/:id</th>
-            <th>PUT</th>
-            <th>{ "email" : string, "firstName" : string, "lastName" : string, "mobile" : string, "password" : string, "role_id" : int}
-            </th>
-            <th>&#10004;</th>
-            <th>Update a user</th>
-          </tr>
-          <tr>
-            <th>api/locations</th>
-            <th>GET</th>
-            <th>{}</th>
-            <th>&#10004;</th>
-            <th>List all locations</th>
-          </tr>
-          <tr>
-            <th>api/roles</th>
-            <th>GET</th>
-            <th>{}</th>
-            <th>&#10004;</th>
-            <th>List all roles</th>
-          </tr>
-      </table>
-    </article>
+          <table>
+            <tr class="tr_header">
+              <th>Service</th>
+              <th>Method</th>
+              <th>Body</th>
+              <th>Need Authentication</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <th>api/films</th>
+              <th>GET</th>
+              <th>{}</th>
+              <th>&#10004;</th>
+              <th>List all films</th>
+            </tr>
+            <tr>
+              <th>api/films</th>
+              <th>POST</th>
+              <th>{ "number" : int, "email" : string }
+              </th>
+              <th>&#10004;</th>
+              <th>Create a film</th>
+            </tr>
+            <tr>
+              <th>api/films/:id</th>
+              <th>GET</th>
+              <th>{}
+              </th>
+              <th>&#10004;</th>
+              <th>Read a film by id</th>
+            </tr>
+            <tr>
+              <th>api/films?number=:number</th>
+              <th>GET</th>
+              <th>{}
+              </th>
+              <th></th>
+              <th>Read a film by number</th>
+              <tr>
+                <th>api/films/:id</th>
+                <th>DELETE</th>
+                <th>{}
+                </th>
+                <th>&#10004;</th>
+                <th>Delete a film</th>
+              </tr>
+              <tr>
+                <th>api/users</th>
+                <th>GET</th>
+                <th>{}</th>
+                <th>&#10004;</th>
+                <th>List all users</th>
+              </tr>
+              <tr>
+                <th>api/users?email=:email&amp;password=:password</th>
+                <th>GET</th>
+                <th>{}</th>
+                <th></th>
+                <th>Read user with email and password</th>
+              </tr>
+              <tr>
+                <th>api/users</th>
+                <th>POST</th>
+                <th>{ "email" : string, "firstName" : string, "lastName" : string, "mobile" : string, "password" : string}
+                </th>
+                <th></th>
+                <th>Create a user</th>
+              </tr>
+              <tr>
+                <th>api/users/:id</th>
+                <th>GET</th>
+                <th>{}
+                </th>
+                <th>&#10004;</th>
+                <th>Read a user</th>
+              </tr>
+              <tr>
+                <th>api/users/:id</th>
+                <th>PUT</th>
+                <th>{ "email" : string, "firstName" : string, "lastName" : string, "mobile" : string, "password" : string, "role_id" : int}
+                </th>
+                <th>&#10004;</th>
+                <th>Update a user</th>
+              </tr>
+              <tr>
+                <th>api/locations</th>
+                <th>GET</th>
+                <th>{}</th>
+                <th>&#10004;</th>
+                <th>List all locations</th>
+              </tr>
+              <tr>
+                <th>api/roles</th>
+                <th>GET</th>
+                <th>{}</th>
+                <th>&#10004;</th>
+                <th>List all roles</th>
+              </tr>
+          </table>
+        </article>
 
-    <% include ../partials/footer.ejs %>
+        <% include ../partials/footer.ejs %>
   </div>
 </body>
 

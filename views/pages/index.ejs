@@ -10,51 +10,47 @@
 <body onload="getFilms()">
   <div class="container">
 
-    <header class="header">
-      <h1>Film Lookup</h1>
-      <h2>Welcome
-        <%= user ? user.firstname : "" %>
-      </h2>
-    </header>
+    <% var title = 'Welcome' + (user ? ' ' + user.firstname : '') %>
+      <% include ../partials/header.ejs %>
 
-    <% include ../partials/nav.ejs %>
+        <%include ../partials/nav.ejs %>
 
-      <article class="article">
-        <br>
-        <div id="message"></div>
-        <br>
-        <br>
-        <center>
+          <article class="article">
+            <br>
+            <div id="message"></div>
+            <br>
+            <br>
+            <center>
 
-          <p>Welcome
-            <%= user ? user.firstname  + " " : "" %> to the Film Lookup Service for the Sacramento FamilySearch Library</p>
+              <p>Welcome
+                <%= user ? user.firstname  + " " : "" %> to the Film Lookup Service for the Sacramento FamilySearch Library</p>
 
-          <input type="text" class="expandable" id="film_number" name="number" onkeyup="lookup()" placeholder="Search by film number...">
-          <br>
+              <input type="text" class="expandable" id="film_number" name="number" onkeyup="lookup()" placeholder="Search by film number...">
+              <br>
 
-          <input type="radio" name="method" onchange="lookup()" id="matching" checked> Matching<br>
-          <input type="radio" name="method" onchange="lookup()" id="containing"> Containing<br>
-          <br>
-          <br>
+              <input type="radio" name="method" onchange="lookup()" id="matching" checked> Matching<br>
+              <input type="radio" name="method" onchange="lookup()" id="containing"> Containing<br>
+              <br>
+              <br>
 
-          <div id="loader"></div>
+              <div id="loader"></div>
 
-          <table id="films_table" style="visibility: hidden; opacity: 0;">
-            <tr class="tr_header">
-              <th>Film</th>
-              <th>Location</th>
-              <th>Created at</th>
-            </tr>
-          </table>
+              <table id="films_table" style="visibility: hidden; opacity: 0;">
+                <tr class="tr_header">
+                  <th>Film</th>
+                  <th>Location</th>
+                  <th>Created at</th>
+                </tr>
+              </table>
 
-          <center id="toast">
-            <p id="ptoast">Not Found</p>
-          </center>
+              <center id="toast">
+                <p id="ptoast">Not Found</p>
+              </center>
 
-        </center>
-      </article>
+            </center>
+          </article>
 
-      <% include ../partials/footer.ejs %>
+          <% include ../partials/footer.ejs %>
   </div>
 </body>
 

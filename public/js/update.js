@@ -1,0 +1,2 @@
+function updateRole(id, admin) {
+}

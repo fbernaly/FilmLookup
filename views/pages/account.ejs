@@ -29,11 +29,11 @@
               <%= user ? user.mobile  + " " : "" %>
             </p>
             <p>
-              <%= user ? user.name  + " " : "" %>
+              <%= user ? user.role  + " " : "" %>
             </p>
 
 
-            <% if (user && user.name == "patron") { %>
+            <% if (user && user.role == "patron") { %>
               <br>
               <p>You are still a patron, need to wait for another admin to grant you admin privileges.</p>
               <% } %>

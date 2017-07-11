@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Login</title>
+  <% include ../partials/head.ejs %>
+    <script type="text/javascript" src="/js/update.js"></script>
+</head>
+
+<body>
+  <div class="container">
+
+    <% var title = 'Users' %>
+      <% include ../partials/header.ejs %>
+
+        <%include ../partials/nav.ejs %>
+
+          <article class="article">
+            
+            <br>
+            <p>As an Admin, you can grant or remove privileges to other users.</p>
+
+            <% if (users) { %>
+              <table>
+                <tr class="tr_header">
+                  <th>ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>E-mail</th>
+                  <th>Role</th>
+                </tr>
+
+                <%
+                var id = user.id;
+                users.forEach(function(user) {
+                  if (id != user.id) {
+                %>
+                  <tr>
+                    <td>
+                      <%= user.id %>
+                    </td>
+                    <td>
+                      <%= user.firstname %>
+                    </td>
+                    <td>
+                      <%= user.lastname %>
+                    </td>
+                    <td>
+                      <%= user.email %>
+                    </td>
+                    <td>
+                      <div class="onoffswitch">
+                        <input type="checkbox" onclick="updateRole(this.id, this.checked);" name="onoffswitch" class="onoffswitch-checkbox" id="<%= user.id %>" <%=user.role=='admin' ? "checked" : ""%>>
+                        <label class="onoffswitch-label" for="<%= user.id %>">
+                          <span class="onoffswitch-inner"></span>
+                          <span class="onoffswitch-switch"></span>
+                        </label>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <%
+                  }
+                });
+                %>
+
+              </table>
+              <% } %>
+
+          </article>
+
+          <% include ../partials/footer.ejs %>
+  </div>
+</body>
+
+</html>

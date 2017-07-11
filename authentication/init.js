@@ -3,7 +3,7 @@ const LocalStrategy = require('passport-local').Strategy
 const db = require('../routes/api/db');
 
 function findUser(email, callback) {
-  var sql = "SELECT u.id as id, u.firstName, u.lastName, u.email, u.mobile, r.name, u.password FROM public.user u INNER JOIN public.role r ON r.id = u.role_id WHERE u.email = $1::text";
+  var sql = "SELECT u.id as id, u.firstName, u.lastName, u.email, u.mobile, r.name as role, u.password FROM public.user u INNER JOIN public.role r ON r.id = u.role_id WHERE u.email = $1::text";
   var params = [email];
   db.query(sql, params, function (err, json) {
     // Handle error

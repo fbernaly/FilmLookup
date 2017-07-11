@@ -37,15 +37,15 @@ function query(sql, params, res, callback) {
   });
 }
 
+var isAuthenticated = function (req, res, next) {
+  if (req.isAuthenticated())
+    return next();
+  res.sendStatus(401);
+}
+
 api.route('/')
   .get(function (req, res) {
     res.render('pages/api');
-  });
-
-api.route('/login')
-  .post(function (req, res) {
-    if (!req.body) return res.sendStatus(400);
-    res.send(req.body);
   });
 
 api.route('/films')
@@ -59,7 +59,7 @@ api.route('/films')
     sql += " ORDER BY f.number";
     query(sql, params, res);
   })
-  .post(function (req, res) {
+  .post(isAuthenticated, function (req, res) {
     if (!req.body) return res.sendStatus(400);
     var sql = statements["post_film"];
     var params = []
@@ -75,7 +75,7 @@ api.route('/films')
   });
 
 api.route('/films/:id')
-  .get(function (req, res) {
+  .get(isAuthenticated, function (req, res) {
     var sql = statements["get_films"];
     var params = []
     if (req.params.id) {
@@ -84,7 +84,7 @@ api.route('/films/:id')
     }
     query(sql, params, res);
   })
-  .delete(function (req, res) {
+  .delete(isAuthenticated, function (req, res) {
     var sql = statements["delete_film"];
     var params = []
     if (req.params.id) {
@@ -98,19 +98,13 @@ api.route('/films/:id')
   });
 
 api.route('/users')
-  .get(function (req, res) {
+  .get(isAuthenticated, function (req, res) {
     var sql = statements["get_users"];
     var params = []
-    if (req.query.email && req.query.password) {
-      sql += " WHERE u.email = $1::text AND u.password = $2::text";
-      params = [req.query.email, req.query.password];
-    } else {
-
-    }
     sql += " ORDER BY u.firstName, u.lastName, u.email";
     query(sql, params, res);
   })
-  .post(function (req, res) {
+  .post(isAuthenticated, function (req, res) {
     if (!req.body) return res.sendStatus(400);
     var sql = statements["post_user"];
     var params = []
@@ -126,7 +120,7 @@ api.route('/users')
   });
 
 api.route('/users/:id')
-  .get(function (req, res) {
+  .get(isAuthenticated, function (req, res) {
     var sql = statements["get_users"];
     var params = []
     if (req.params.id) {
@@ -135,7 +129,7 @@ api.route('/users/:id')
     }
     query(sql, params, res);
   })
-  .put(function (req, res) {
+  .put(isAuthenticated, function (req, res) {
     if (!req.body) return res.sendStatus(400);
     var sql = statements["put_user"];
     var params = []
@@ -187,14 +181,14 @@ api.route('/users/:id')
   });
 
 api.route('/locations')
-  .get(function (req, res) {
+  .get(isAuthenticated, function (req, res) {
     var sql = statements["get_locations"];
     var params = []
     query(sql, params, res);
   });
 
 api.route('/roles')
-  .get(function (req, res) {
+  .get(isAuthenticated, function (req, res) {
     var sql = statements["get_roles"];
     var params = []
     query(sql, params, res);

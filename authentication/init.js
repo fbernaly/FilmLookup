@@ -43,6 +43,8 @@ function initPassport() {
         if (password !== user.password) {
           return done(null, false, req.flash('message', 'Incorrect password.'));
         }
+        delete user.password;
+        req.session.user = user;
         return done(null, user);
       })
     }
@@ -82,6 +84,8 @@ function initPassport() {
             if (!user) {
               return done(null, false, req.flash('message', 'User not found.'));
             }
+            delete user.password;
+            req.session.user = user;
             return done(null, user);
           });
         });

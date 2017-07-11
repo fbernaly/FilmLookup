@@ -1,8 +1,6 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
-
 const db = require('../routes/api/db');
-const authenticationMiddleware = require('./middleware')
 
 function findUser(email, callback) {
   var sql = "SELECT u.id as id, u.firstName, u.lastName, u.email, u.mobile, r.name, u.password FROM public.user u INNER JOIN public.role r ON r.id = u.role_id WHERE u.email = $1::text";
@@ -90,8 +88,6 @@ function initPassport() {
       });
     }
   ));
-
-  passport.authenticationMiddleware = authenticationMiddleware;
 }
 
 module.exports = initPassport;

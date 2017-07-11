@@ -1,6 +1,7 @@
 const express = require('express');
 const db = require('./db');
 const api = express.Router();
+const isAuthenticated = require('../../authentication/middleware');
 
 var statements = {
   "get_films": "SELECT f.id, f.number AS film_number, u.firstName || ' ' || u.lastName AS created_by, l.name AS location, f.created_at AS created_at, f.updated_at AS updated_at FROM public.film f INNER JOIN public.user u on f.created_by = u.id INNER JOIN public.location l on f.located_at = l.id",
@@ -35,12 +36,6 @@ function query(sql, params, res, callback) {
       });
     }
   });
-}
-
-var isAuthenticated = function (req, res, next) {
-  if (req.isAuthenticated())
-    return next();
-  res.sendStatus(401);
 }
 
 api.route('/')

@@ -20,6 +20,16 @@ router.route('/login')
 router.route('/signup')
   .get(function (req, res) {
     res.render('pages/signup');
+  })
+  .post(passport.authenticate('signup', {
+    successRedirect: '/',
+    failureRedirect: '/error',
+    failureFlash: true
+  }));
+
+router.route('/error')
+  .get(function (req, res) {
+    res.send(req.flash('message'));
   });
 
 module.exports = router;

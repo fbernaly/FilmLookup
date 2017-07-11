@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Login</title>
+  <% include ../partials/head.ejs %>
+</head>
+
+<body>
+  <div class="container">
+
+    <% var title = 'My Account' %>
+      <% include ../partials/header.ejs %>
+
+        <%include ../partials/nav.ejs %>
+
+          <article class="article">
+            <h2>Contact Information</h2>
+            <p>
+              <%= user ? user.firstname  + " " : "" %>
+            </p>
+            <p>
+              <%= user ? user.lastname  + " " : "" %>
+            </p>
+            <p>
+              <%= user ? user.email  + " " : "" %>
+            </p>
+            <p>
+              <%= user ? user.mobile  + " " : "" %>
+            </p>
+            <p>
+              <%= user ? user.name  + " " : "" %>
+            </p>
+
+
+            <% if (user && user.name == "patron") { %>
+              <br>
+              <p>You are still a patron, need to wait for another admin to grant you admin privileges.</p>
+              <% } %>
+          </article>
+
+          <% include ../partials/footer.ejs %>
+  </div>
+</body>
+
+</html>

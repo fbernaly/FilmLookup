@@ -17,7 +17,9 @@ router.route('/users')
 
 router.route('/account')
   .get(isAuthenticated, function (req, res) {
-    res.send('Hello to account');
+    res.render('pages/account', {
+      user: req.session.user
+    });
   });
 
 router.route('/login')

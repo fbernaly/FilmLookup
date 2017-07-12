@@ -157,7 +157,7 @@ table tr:hover {
 }
 
 input[type=text].expandable {
-  width: 250px;
+  width: 80%;
   box-sizing: border-box;
   border: 2px solid #ccc;
   border-radius: 4px;
@@ -170,9 +170,11 @@ input[type=text].expandable {
   transition: width 0.4s ease-in-out;
 }
 
+/*
 input[type=text].expandable:focus {
   width: 80%;
 }
+*/
 
 #loader {
   border: 5px solid #eee;

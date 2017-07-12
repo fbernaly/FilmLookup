@@ -1,4 +1,4 @@
-# Postal Rate Calculator
+# Film Lookup Service
 
 A Node.js app using [Express](http://expressjs.com/) and deployed to [Heroku](http://www.heroku.com).
 

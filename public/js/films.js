@@ -79,7 +79,8 @@ function addRow(film, sibling) {
   var tr = document.createElement("TR");
   addColumn(tr, film['film_number']);
   addColumn(tr, film['location']);
-  addColumn(tr, film['created_at']);
+  var date = new Date(film['created_at']);
+  addColumn(tr, date.toLocaleString());
   if (sessionStorage.isAdmin == 'true') {
     addDeleteButton(tr, film['id'], film['film_number']);
   }

@@ -1,24 +1,3 @@
-function search() {
-  var str = document.getElementById("film_number").value;
-  if (str == "") {
-    document.getElementById("response").innerHTML = "Film number missing";
-    return;
-  } else {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-      if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-        if (xmlhttp.status == 200) {
-          document.getElementById("response").innerHTML = xmlhttp.responseText;
-        } else {
-          alert('There was a problem with the request.');
-        }
-      }
-    };
-    xmlhttp.open('GET', 'api/films?number=' + str);
-    xmlhttp.send();
-  }
-}
-
 function lookup() {
   var filter, table, tr, matching, containing;
   filter = document.getElementById("film_number").value.toUpperCase();
@@ -232,6 +211,5 @@ function searchFilmSiblingInTable() {
       }
     }
   }
-
   return null;
 }

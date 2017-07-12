@@ -9,7 +9,8 @@
 
 <body onload="getFilms()">
   <script>
-    sessionStorage.isAdmin= <%= (user && user.role == 'admin') ? true : false %>
+    sessionStorage.isAdmin = <%= (user && user.role == 'admin') ? true : false %>
+    sessionStorage.email = '<%= (user && user.email) ? user.email : "" %>'
 
   </script>
   <div class="container">

@@ -154,7 +154,7 @@ function addFilm() {
   xmlhttp.open('POST', 'api/films');
   xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   var number = document.getElementById("film_number").value
-  var email = "fbernaly@gmail.com"
+  var email = sessionStorage.email
   xmlhttp.send('number=' + number + '&email=' + email);
 }
 

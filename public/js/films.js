@@ -34,10 +34,6 @@ function getFilms() {
         setTimeout(function () {
           displayTable(json);
         }, 900);
-      } else {
-        alert('There was a problem with the request.');
-        var p = document.getElementById("perror");
-        p.style.visibility = "visible";
       }
       hideLoader();
     }
@@ -145,9 +141,15 @@ function addFilm() {
   xmlhttp.onreadystatechange = function () {
     if (xmlhttp.readyState == XMLHttpRequest.DONE) {
       if (xmlhttp.status == 200) {
-        var button = document.getElementById("add_button");
-        button.style.display = "none"
-        insertFilmInTable()
+        var json = JSON.parse(xmlhttp.responseText);
+        var success = json["success"];
+        if (success == true) {
+          var data = json['data'];
+          var film = data[0];
+          var sibling = searchFilmSiblingInTable()
+          addRow(film, sibling)
+          lookup()
+        }
       } else {}
     }
   };
@@ -163,37 +165,19 @@ function deleteFilm(id, number, tr) {
   xmlhttp.onreadystatechange = function () {
     if (xmlhttp.readyState == XMLHttpRequest.DONE) {
       if (xmlhttp.status == 200) {
-        tr.parentNode.removeChild(tr);
-        lookup()
-        var p = document.getElementById("ptoast");
-        p.innerHTML = "Film '" + number + "' deleted."
+        var json = JSON.parse(xmlhttp.responseText);
+        var success = json["success"];
+        if (success == true) {
+          tr.parentNode.removeChild(tr);
+          lookup()
+          var p = document.getElementById("ptoast");
+          p.innerHTML = "Film '" + number + "' deleted."
+        }
       } else {}
     }
   };
   xmlhttp.open('DELETE', 'api/films/' + id);
   xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  xmlhttp.send();
-}
-
-function insertFilmInTable() {
-  var number = document.getElementById("film_number").value;
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function () {
-    if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-      if (xmlhttp.status == 200) {
-        var json = JSON.parse(xmlhttp.responseText);
-        var success = json["success"];
-        if (success == true) {
-          var arr = json['data'];
-          var film = arr[0];
-          var sibling = searchFilmSiblingInTable()
-          addRow(film, sibling)
-          lookup()
-        }
-      } else {}
-    }
-  };
-  xmlhttp.open('GET', 'api/films?number=' + number);
   xmlhttp.send();
 }
 

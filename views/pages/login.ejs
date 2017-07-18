@@ -20,19 +20,16 @@
         </nav>
 
         <article class="article">
-          <center>
-            <form action="/login" method="post">
-              E-mail:
-              <input type="text" name="email" id="email" placeholder="Enter your email" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required />
-              <br> Password:
-              <input type="password" name="password" id="password" placeholder="Enter your password" required="required" />
-              <br>
-              <button type="submit">Log In</button>
-            </form>
-
+          <form action="/login" method="post">
+            E-mail:
+            <input type="text" name="email" id="email" placeholder="Enter your email" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required />
+            <br> Password:
+            <input type="password" name="password" id="password" placeholder="Enter your password" required="required" />
             <br>
-            <div id="response"></div>
-          </center>
+            <center>
+              <button type="submit">Log In</button>
+            </center>
+          </form>
         </article>
 
         <% include ../partials/footer.ejs %>

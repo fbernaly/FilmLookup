@@ -21,25 +21,25 @@
         </nav>
 
         <article class="article">
-          <center>
-            <form action="/signup" onsubmit="return validatePasswords()" method="post">
-              First Name *
-              <input type="text" id="firstName" name="firstName" placeholder="First Name" required />
-              <br> Last Name *
-              <input type="text" id="lastName" name="lastName" placeholder="Last Name" required />
-              <br>Mobile *
-              <input type="tel" id="mobile" name="mobile" pattern="^\d{10}$" placeholder="Enter a ten digit phone number" required />
-              <br>Email *
-              <input type="email" id="email" name="email" placeholder="Enter a valid email" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required />
-              <br>Password *
-              <input type="password" name="password" id="password" placeholder="Password must contain 1 uppercase, lowercase and number" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required />
-              <br>Confirm Password *
-              <input type="password" name="confirm_password" id="confirm_password" placeholder="Password must contain 1 uppercase, lowercase and number" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required />
-              <br>
-              <br>
+          <form action="/signup" onsubmit="return validatePasswords()" method="post">
+            First Name *
+            <input type="text" id="firstName" name="firstName" placeholder="First Name" required />
+            <br> Last Name *
+            <input type="text" id="lastName" name="lastName" placeholder="Last Name" required />
+            <br>Mobile *
+            <input type="tel" id="mobile" name="mobile" pattern="^\d{10}$" placeholder="Enter a ten digit phone number" required />
+            <br>Email *
+            <input type="email" id="email" name="email" placeholder="Enter a valid email" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required />
+            <br>Password *
+            <input type="password" name="password" id="password" placeholder="Password must contain 1 uppercase, lowercase and number" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required />
+            <br>Confirm Password *
+            <input type="password" name="confirm_password" id="confirm_password" placeholder="Password must contain 1 uppercase, lowercase and number" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required />
+            <br>
+            <br>
+            <center>
               <button type="submit">Sign Up</button>
-            </form>
-          </center>
+            </center>
+          </form>
         </article>
 
         <% include ../partials/footer.ejs %>

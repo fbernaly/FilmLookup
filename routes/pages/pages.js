@@ -14,6 +14,11 @@ router.route('/')
 
 router.route('/users')
   .get(isAuthenticated, function (req, res) {
+    if (req.session.user.role != 'admin') {
+      res.sendStatus(401);
+      return;
+    }
+
     var sql = "SELECT u.id as id, u.firstName, u.lastName, u.email, u.mobile, r.name as role, u.password FROM public.user u INNER JOIN public.role r ON r.id = u.role_id ORDER BY u.firstName, u.lastName, u.email";
     var params = []
     db.query(sql, params, function (err, json) {

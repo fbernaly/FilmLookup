@@ -3,11 +3,13 @@
     <li><a href="<%= title == ('Welcome' + (user ? ' ' + user.firstname : '')) ? '#' : '/'%>">Home</a></li>
     <% if (user) { %>
       <li><a href="<%= title == 'My Account' ? '#' : '/account'%>">My Account</a></li>
-      <li><a href="<%= title == 'Users' ? '#' : '/users'%>">Users</a></li>
-      <li><a href="/logout">Log Out</a></li>
-      <% } else { %>
-        <li><a href="/login">Login</a></li>
-        <li><a href="/signup">Sign Up</a></li>
-        <% }%>
+      <% if (user.role == "admin") { %>
+        <li><a href="<%= title == 'Users' ? '#' : '/users'%>">Users</a></li>
+        <% } %>
+          <li><a href="/logout">Log Out</a></li>
+          <% } else { %>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/signup">Sign Up</a></li>
+            <% }%>
   </ul>
 </nav>
